@@ -102,13 +102,13 @@ namespace prjHangman
                 ++WrongGuesses;
                 if (WrongGuesses == 6)
                 {
-                    MessageBox.Show("gameover");
+                    ResetGame(false);
                 }
             }
 
             if (mtbAnswer.Text.ToUpper() == Words.CurrentWord.ToUpper())
             {
-                MessageBox.Show("you won");
+                ResetGame(true);
             }
             
         }
@@ -145,6 +145,11 @@ namespace prjHangman
                 }
             }
 
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            ResetGame(mtbAnswer.Text.ToUpper() == Words.CurrentWord.ToUpper());
         }
 
         
