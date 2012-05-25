@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace prjHangman
 {
@@ -13,7 +14,7 @@ namespace prjHangman
     {
         private dictionary Words = new dictionary();
         private string GuessedLetters = "";
-
+        private string WordMask = "";
 
         public Form1()
         {
@@ -23,6 +24,7 @@ namespace prjHangman
         private void  InitGame()
         {
             Words.GetWord();
+            #region LableCreation
             for (int c = 65; c < 91; c++)
             {
                 Label Letter = new Label();
@@ -35,14 +37,36 @@ namespace prjHangman
                 this.Controls.Add(Letter);
 
             }
+            #endregion
+            WordMask = Regex.Replace(Words.CurrentWord, "[A-Za-z]", "A");
+            mtbAnswer.Mask = WordMask;
+
+
         }
 
         void Letter_Click(object sender, EventArgs e)
         {
             Label ClickedLetter = sender as Label;
-            MessageBox.Show(ClickedLetter.Text);
             ClickedLetter.Visible = false;
             GuessedLetters += ClickedLetter.Text;
+            int i = 0;
+            int s = 0;
+            int j = -1;
+            while (Words.CurrentWord.ToUpper().IndexOf(ClickedLetter.Text, (i)) > -1)
+            {
+                i = Words.CurrentWord.ToUpper().IndexOf(ClickedLetter.Text, (i));
+                while ( (j=WordMask.IndexOf('\\',j+1)) > -1 && j <=(i+s))
+                {
+                    s++;
+                }
+                WordMask = WordMask.Remove((i + s), 1).Insert((i + s), '\\' + ClickedLetter.Text);
+                s = 0;
+                i += 1;
+                j = -1;
+                if (i == mtbAnswer.TextLength)
+                    break;
+            }
+            mtbAnswer.Mask = WordMask;
 
         }
 
@@ -53,7 +77,9 @@ namespace prjHangman
 
         private void Form1_Click(object sender, EventArgs e)
         {
-
+            mtbAnswer.Enabled = !mtbAnswer.Enabled;
+            btnSubmit.Visible = !btnSubmit.Visible;
+            mtbAnswer.Text = "";
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
