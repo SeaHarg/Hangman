@@ -69,8 +69,7 @@ namespace prjHangman
             #endregion
             WordMask = Regex.Replace(Words.CurrentWord, "[A-Za-z]", "A");
             mtbAnswer.Mask = WordMask;
-
-
+            picDrawing.Image = imageList1.Images[0];
         }
 
         void Letter_Click(object sender, EventArgs e)
@@ -99,7 +98,8 @@ namespace prjHangman
 
             if (i == 0)
             {
-                ++WrongGuesses;
+                picDrawing.Image=imageList1.Images[++WrongGuesses];
+
                 if (WrongGuesses == 6)
                 {
                     ResetGame(false);
