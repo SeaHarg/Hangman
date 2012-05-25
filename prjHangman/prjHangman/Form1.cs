@@ -123,6 +123,7 @@ namespace prjHangman
             mtbAnswer.Enabled = !mtbAnswer.Enabled;
             btnSubmit.Visible = !btnSubmit.Visible;
             mtbAnswer.Text = "";
+            this.Focus();
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
