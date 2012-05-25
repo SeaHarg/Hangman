@@ -15,7 +15,32 @@ namespace prjHangman
         private dictionary Words = new dictionary();
         private string GuessedLetters = "";
         private string WordMask = "";
+        private int WrongGuesses = 0;
+        private bool Initialized = false;
 
+        private void ResetGame(bool Win)
+        {
+            mtbAnswer.Mask = Regex.Replace(Words.CurrentWord, "[A-Za-z]", "A");
+            mtbAnswer.Text = Words.CurrentWord.ToUpper();
+            if (MessageBox.Show((Win ? "You Win!" : "You Lose!") + Environment.NewLine + "Would you like to play again?", "Game Over", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                foreach (Control c in this.Controls)
+                {
+                    if (c.GetType() == typeof(Label))
+                    {
+                        c.Visible = true;
+                    }
+                }
+                GuessedLetters = "";
+                mtbAnswer.Text = "";
+                InitGame();
+                WrongGuesses = 0;
+            }
+            else
+            {
+                Application.Exit();
+            }
+        }
         public Form1()
         {
             InitializeComponent();
@@ -25,17 +50,21 @@ namespace prjHangman
         {
             Words.GetWord();
             #region LableCreation
-            for (int c = 65; c < 91; c++)
+            if (!Initialized)
             {
-                Label Letter = new Label();
-                Letter.Text = ((char)c).ToString();
-                Letter.Top = c < 80 ? 300 : 340;
-                Letter.Left = c < 80 ? (c - 65) * 34 + 12 : (c - 80) * 44 + 23;
-                Letter.Font = mtbAnswer.Font;
-                Letter.AutoSize = true;
-                Letter.Click += new EventHandler(Letter_Click);
-                this.Controls.Add(Letter);
+                for (int c = 65; c < 91; c++)
+                {
+                    Label Letter = new Label();
+                    Letter.Text = ((char)c).ToString();
+                    Letter.Top = c < 80 ? 300 : 340;
+                    Letter.Left = c < 80 ? (c - 65) * 34 + 12 : (c - 80) * 44 + 23;
+                    Letter.Font = mtbAnswer.Font;
+                    Letter.AutoSize = true;
+                    Letter.Click += new EventHandler(Letter_Click);
+                    this.Controls.Add(Letter);
 
+                }
+                Initialized = true;
             }
             #endregion
             WordMask = Regex.Replace(Words.CurrentWord, "[A-Za-z]", "A");
@@ -68,6 +97,20 @@ namespace prjHangman
             }
             mtbAnswer.Mask = WordMask;
 
+            if (i == 0)
+            {
+                ++WrongGuesses;
+                if (WrongGuesses == 6)
+                {
+                    MessageBox.Show("gameover");
+                }
+            }
+
+            if (mtbAnswer.Text.ToUpper() == Words.CurrentWord.ToUpper())
+            {
+                MessageBox.Show("you won");
+            }
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
