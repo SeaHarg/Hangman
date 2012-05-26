@@ -17,9 +17,18 @@ namespace prjHangman
         private string WordMask = "";
         private int WrongGuesses = 0;
         private bool Initialized = false;
-
+        private int score = 0;
+        #region ResetGame
         private void ResetGame(bool Win)
         {
+            
+            /*Displays the word in the maskeed textbox
+             * the long line of code is an if statement. if win is true then the message box displays you win.
+             * if it is set to lose then it displays you lose. it always asks if you want to play again in a new line
+             * it then re displays all the letter lables.
+             * reassigns all the varibles to the defult position
+             * if they dont want to play again it exits the program.
+             */
             mtbAnswer.Mask = Regex.Replace(Words.CurrentWord, "[A-Za-z]", "A");
             mtbAnswer.Text = Words.CurrentWord.ToUpper();
             if (MessageBox.Show((Win ? "You Win!" : "You Lose!") + Environment.NewLine + "Would you like to play again?", "Game Over", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -40,7 +49,9 @@ namespace prjHangman
             {
                 Application.Exit();
             }
+
         }
+        #endregion
         public Form1()
         {
             InitializeComponent();
@@ -67,7 +78,10 @@ namespace prjHangman
                 Initialized = true;
             }
             #endregion
-
+            #region InstructionsLabel
+            /* this creates the instructions lable.
+             * it assigns the text to it, positon on the form, and creates the mouse hover event.
+             */
             Label Instructions = new Label();
             Instructions.Text = "Instructions";
             Instructions.Top = 100;
@@ -76,10 +90,25 @@ namespace prjHangman
             Instructions.AutoSize = true;
             Instructions.MouseHover += new EventHandler(Instructions_MouseHover);
             this.Controls.Add(Instructions);
-
+            #endregion
+            #region ScoreLabel
+            Label Score = new Label();
+            Score.Text = "Score: " + score;
+            Score.Top = 150;
+            Score.Left = 352;
+            Score.Font = mtbAnswer.Font;
+            Score.AutoSize = true;
+            this.Controls.Add(Score);
+            #endregion
+            #region MaskExplanationAndInitalization
+            /*word mask is a varible that holds the the hidden word.
+             * used a regular expression becuase its faster than useing a loop and uses less code.
+             * and draws the first picture
+             */
             WordMask = Regex.Replace(Words.CurrentWord, "[A-Za-z]", "A");
             mtbAnswer.Mask = WordMask;
             picDrawing.Image = imageList1.Images[0];
+            #endregion
         }
         void Instructions_MouseHover(object sender, EventArgs e)
         {
