@@ -17,7 +17,7 @@ namespace prjHangman
         private string WordMask = "";
         private int WrongGuesses = 0;
         private bool Initialized = false;
-        private int score = 0;
+        private int Points = 0;
         #region ResetGame
         private void ResetGame(bool Win)
         {
@@ -57,7 +57,7 @@ namespace prjHangman
             InitializeComponent();
         }
 
-        private void  InitGame()
+        public void  InitGame()
         {
             Words.GetWord();
             #region LetterLableCreation
@@ -93,7 +93,7 @@ namespace prjHangman
             #endregion
             #region ScoreLabel
             Label Score = new Label();
-            Score.Text = "Score: " + score;
+            Score.Text = "Score: " + Points;
             Score.Top = 150;
             Score.Left = 352;
             Score.Font = mtbAnswer.Font;
@@ -109,6 +109,12 @@ namespace prjHangman
             mtbAnswer.Mask = WordMask;
             picDrawing.Image = imageList1.Images[0];
             #endregion
+        }
+
+        public void ScoreingSystem()
+        {
+            Points = Points + ((6 - WrongGuesses) * Words.CurrentWord.Length);
+            
         }
         void Instructions_MouseHover(object sender, EventArgs e)
         {
