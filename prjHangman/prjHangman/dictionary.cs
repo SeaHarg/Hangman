@@ -72,11 +72,6 @@ namespace prjHangman
             WordBank.Add("Public");
             WordBank.Add("Clipboard");
             WordBank.Add("Patch");
-
-
-
-
-
         }
         #endregion
         #region Functions

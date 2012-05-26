@@ -80,6 +80,7 @@
             this.picDrawing.Size = new System.Drawing.Size(250, 254);
             this.picDrawing.TabIndex = 2;
             this.picDrawing.TabStop = false;
+            this.picDrawing.Click += new System.EventHandler(this.picDrawing_Click);
             // 
             // Form1
             // 

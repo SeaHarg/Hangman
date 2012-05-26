@@ -49,7 +49,7 @@ namespace prjHangman
         private void  InitGame()
         {
             Words.GetWord();
-            #region LableCreation
+            #region LetterLableCreation
             if (!Initialized)
             {
                 for (int c = 65; c < 91; c++)
@@ -67,9 +67,23 @@ namespace prjHangman
                 Initialized = true;
             }
             #endregion
+
+            Label Instructions = new Label();
+            Instructions.Text = "Instructions";
+            Instructions.Top = 100;
+            Instructions.Left = 352;
+            Instructions.Font = mtbAnswer.Font;
+            Instructions.AutoSize = true;
+            Instructions.MouseHover += new EventHandler(Instructions_MouseHover);
+            this.Controls.Add(Instructions);
+
             WordMask = Regex.Replace(Words.CurrentWord, "[A-Za-z]", "A");
             mtbAnswer.Mask = WordMask;
             picDrawing.Image = imageList1.Images[0];
+        }
+        void Instructions_MouseHover(object sender, EventArgs e)
+        {
+            MessageBox.Show("How to play:" + Environment.NewLine + Environment.NewLine + "You can ether click on the letter to enter" + Environment.NewLine + "that letter in as your guess. Or you can" + Environment.NewLine + "type the letter on your keyboard. If you" + Environment.NewLine + "think you can guess the full word, then" + Environment.NewLine + "click anywhere on the form and type in the" + Environment.NewLine + "remaning letters and click submit.", "Instructions");
         }
 
         void Letter_Click(object sender, EventArgs e)
@@ -151,6 +165,14 @@ namespace prjHangman
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             ResetGame(mtbAnswer.Text.ToUpper() == Words.CurrentWord.ToUpper());
+        }
+
+        private void picDrawing_Click(object sender, EventArgs e)
+        {
+            mtbAnswer.Enabled = !mtbAnswer.Enabled;
+            btnSubmit.Visible = !btnSubmit.Visible;
+            mtbAnswer.Text = "";
+            this.Focus();
         }
 
         
