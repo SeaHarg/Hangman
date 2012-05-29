@@ -34,6 +34,8 @@
             this.btnSubmit = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.picDrawing = new System.Windows.Forms.PictureBox();
+            this.lblPoints = new System.Windows.Forms.Label();
+            this.lblScore = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDrawing)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,11 +84,31 @@
             this.picDrawing.TabStop = false;
             this.picDrawing.Click += new System.EventHandler(this.picDrawing_Click);
             // 
+            // lblPoints
+            // 
+            this.lblPoints.AutoSize = true;
+            this.lblPoints.Location = new System.Drawing.Point(411, 221);
+            this.lblPoints.Name = "lblPoints";
+            this.lblPoints.Size = new System.Drawing.Size(35, 13);
+            this.lblPoints.TabIndex = 3;
+            this.lblPoints.Text = "label1";
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Location = new System.Drawing.Point(371, 221);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(38, 13);
+            this.lblScore.TabIndex = 4;
+            this.lblScore.Text = "Score:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 408);
+            this.Controls.Add(this.lblScore);
+            this.Controls.Add(this.lblPoints);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.mtbAnswer);
             this.Controls.Add(this.picDrawing);
@@ -110,6 +132,8 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox picDrawing;
+        private System.Windows.Forms.Label lblPoints;
+        private System.Windows.Forms.Label lblScore;
     }
 }
 

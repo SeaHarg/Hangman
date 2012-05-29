@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace prjHangman
 {
@@ -18,40 +19,44 @@ namespace prjHangman
         private int WrongGuesses = 0;
         private bool Initialized = false;
         private int Points = 0;
-        #region ResetGame
+        private bool WonGame = true;
+        
+     
         private void ResetGame(bool Win)
         {
-            
+            #region ResetGame
             /*Displays the word in the maskeed textbox
              * the long line of code is an if statement. if win is true then the message box displays you win.
              * if it is set to lose then it displays you lose. it always asks if you want to play again in a new line
              * it then re displays all the letter lables.
              * reassigns all the varibles to the defult position
              * if they dont want to play again it exits the program.
+             * control finds all the lables on the form and makes them visible
              */
             mtbAnswer.Mask = Regex.Replace(Words.CurrentWord, "[A-Za-z]", "A");
             mtbAnswer.Text = Words.CurrentWord.ToUpper();
-            if (MessageBox.Show((Win ? "You Win!" : "You Lose!") + Environment.NewLine + "Would you like to play again?", "Game Over", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                foreach (Control c in this.Controls)
-                {
-                    if (c.GetType() == typeof(Label))
-                    {
-                        c.Visible = true;
-                    }
-                }
-                GuessedLetters = "";
-                mtbAnswer.Text = "";
-                InitGame();
-                WrongGuesses = 0;
+
+            if (MessageBox.Show(Win ? "You Win" : "You Lose!" + Environment.NewLine + "Would you like to play again?", "Game Over", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {foreach (Control c in this.Controls)
+              {
+                        if (c.GetType() == typeof(Label))
+                        {
+                            c.Visible = true;
+                        }
+              }
+              GuessedLetters = "";
+              mtbAnswer.Text = "";
+              InitGame();
+              WrongGuesses = 0;
+              ScoreingSystem();
             }
             else
             {
                 Application.Exit();
             }
-
+            #endregion
         }
-        #endregion
+        
         public Form1()
         {
             InitializeComponent();
@@ -92,13 +97,16 @@ namespace prjHangman
             this.Controls.Add(Instructions);
             #endregion
             #region ScoreLabel
-            Label Score = new Label();
-            Score.Text = "Score: " + Points;
-            Score.Top = 150;
-            Score.Left = 352;
-            Score.Font = mtbAnswer.Font;
-            Score.AutoSize = true;
-            this.Controls.Add(Score);
+            lblPoints.Top = 150;
+            lblPoints.Left = 352;
+            lblPoints.Font = mtbAnswer.Font;
+            lblPoints.AutoSize = true;
+
+            lblPoints.Top = 150;
+            lblPoints.Text = Convert.ToString(Points);
+            lblPoints.Left = 450;
+            lblPoints.Font = mtbAnswer.Font;
+            lblPoints.AutoSize = true;
             #endregion
             #region MaskExplanationAndInitalization
             /*word mask is a varible that holds the the hidden word.
@@ -158,6 +166,7 @@ namespace prjHangman
             if (mtbAnswer.Text.ToUpper() == Words.CurrentWord.ToUpper())
             {
                 ResetGame(true);
+                
             }
             
         }
