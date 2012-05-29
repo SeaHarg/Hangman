@@ -37,18 +37,19 @@ namespace prjHangman
             mtbAnswer.Text = Words.CurrentWord.ToUpper();
 
             if (MessageBox.Show(Win ? "You Win" : "You Lose!" + Environment.NewLine + "Would you like to play again?", "Game Over", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {foreach (Control c in this.Controls)
-              {
-                        if (c.GetType() == typeof(Label))
-                        {
-                            c.Visible = true;
-                        }
-              }
-              GuessedLetters = "";
-              mtbAnswer.Text = "";
-              InitGame();
-              WrongGuesses = 0;
-              ScoreingSystem();
+            {
+                foreach (Control c in this.Controls)
+                {
+                    if (c.GetType() == typeof(Label))
+                    {
+                        c.Visible = true;
+                    }
+                }
+                GuessedLetters = "";
+                mtbAnswer.Text = "";
+                InitGame();
+                WrongGuesses = 0;
+                ScoreingSystem();
             }
             else
             {
@@ -98,15 +99,16 @@ namespace prjHangman
             #endregion
             #region ScoreLabel
             lblPoints.Top = 150;
-            lblPoints.Left = 352;
-            lblPoints.Font = mtbAnswer.Font;
-            lblPoints.AutoSize = true;
-
-            lblPoints.Top = 150;
-            lblPoints.Text = Convert.ToString(Points);
             lblPoints.Left = 450;
             lblPoints.Font = mtbAnswer.Font;
             lblPoints.AutoSize = true;
+
+            lblScore.Top = 150;
+            lblScore.Text = Convert.ToString(Points);
+            lblScore.Left = 352;
+            lblScore.Font = mtbAnswer.Font;
+            lblScore.Text = "Score:";
+            lblScore.AutoSize = true;
             #endregion
             #region MaskExplanationAndInitalization
             /*word mask is a varible that holds the the hidden word.
