@@ -36,6 +36,8 @@
             this.picDrawing = new System.Windows.Forms.PictureBox();
             this.lblPoints = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
+            this.lblHigh = new System.Windows.Forms.Label();
+            this.lblHighValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDrawing)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,11 +104,31 @@
             this.lblScore.TabIndex = 4;
             this.lblScore.Text = "Score:";
             // 
+            // lblHigh
+            // 
+            this.lblHigh.AutoSize = true;
+            this.lblHigh.Location = new System.Drawing.Point(374, 262);
+            this.lblHigh.Name = "lblHigh";
+            this.lblHigh.Size = new System.Drawing.Size(35, 13);
+            this.lblHigh.TabIndex = 5;
+            this.lblHigh.Text = "label1";
+            // 
+            // lblHighValue
+            // 
+            this.lblHighValue.AutoSize = true;
+            this.lblHighValue.Location = new System.Drawing.Point(443, 262);
+            this.lblHighValue.Name = "lblHighValue";
+            this.lblHighValue.Size = new System.Drawing.Size(35, 13);
+            this.lblHighValue.TabIndex = 6;
+            this.lblHighValue.Text = "label2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 408);
+            this.Controls.Add(this.lblHighValue);
+            this.Controls.Add(this.lblHigh);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.lblPoints);
             this.Controls.Add(this.btnSubmit);
@@ -134,6 +156,8 @@
         private System.Windows.Forms.PictureBox picDrawing;
         private System.Windows.Forms.Label lblPoints;
         private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Label lblHigh;
+        private System.Windows.Forms.Label lblHighValue;
     }
 }
 
